@@ -18,7 +18,7 @@ const createFilterItemTemplate = () => (
   </form>`
 );
 
-export default class NewTaskButtonView {
+export default class FilterView {
   getTemplate() {
     return createFilterItemTemplate();
   }
