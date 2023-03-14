@@ -146,7 +146,7 @@ const createCreateFormTemplate = () => (
 
 export default class CreateFormView {
   getTemplate () {
-    return createCreateFormTemplate;
+    return createCreateFormTemplate();
   }
 
   getElement() {
