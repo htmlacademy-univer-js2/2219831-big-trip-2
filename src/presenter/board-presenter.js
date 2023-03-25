@@ -20,7 +20,7 @@ export default class BoardPresenter {
 
   init(pointsModel) {
     this.#pointsModel = pointsModel;
-    this.#boardPoints = [];
+    this.#boardPoints = []; //для просмотра сообщения о добавлении новых кнопок, при дальнейшей работе убрать
     //this.#boardPoints = [...this.#pointsModel.points];
     this.#destinations = [...this.#pointsModel.destinations];
     this.#offers = [...this.#pointsModel.offers];
