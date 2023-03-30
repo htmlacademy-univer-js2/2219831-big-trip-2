@@ -3,7 +3,7 @@ import EventsView from '../view/events-view.js';
 import SortView from '../view/sort-view.js';
 import PreviewPointView from '../view/preview-point-view.js';
 import NoPointView from '../view/no-points-view.js';
-import { render } from '../render.js';
+import { render, replace } from '../framework/framework/render.js';
 
 export default class BoardPresenter {
   #boardComponent = null;
@@ -20,8 +20,7 @@ export default class BoardPresenter {
 
   init(pointsModel) {
     this.#pointsModel = pointsModel;
-    this.#boardPoints = []; //для просмотра сообщения о добавлении новых кнопок, при дальнейшей работе убрать
-    //this.#boardPoints = [...this.#pointsModel.points];
+    this.#boardPoints = [...this.#pointsModel.points];
     this.#destinations = [...this.#pointsModel.destinations];
     this.#offers = [...this.#pointsModel.offers];
 
@@ -39,42 +38,40 @@ export default class BoardPresenter {
   }
 
   #renderPoint = (point) => {
-    const pointComponent = new PreviewPointView(point, this.#destinations, this.#offers);
-    const pointEditComponent = new EditFormView(point, this.#destinations, this.#offers);
+    const previewPointComponent = new PreviewPointView(point, this.#destinations, this.#offers);
+    const editingPointComponent = new EditFormView(point, this.#destinations, this.#offers);
 
-    const replacePointToEditForm = () => {
-      this.#boardComponent.element.replaceChild(pointEditComponent.element, pointComponent.element);
+    const replacePreviewPointToEditingPoint = () => {
+      replace(editingPointComponent, previewPointComponent);
     };
 
-    const replaceEditFormToPoint = () => {
-      this.#boardComponent.element.replaceChild(pointComponent.element, pointEditComponent.element);
+    const replaceEditingPointToPreviewPoint = () => {
+      replace(previewPointComponent, editingPointComponent);
     };
 
     const onEscKeyDown = (evt) => {
       if (evt.key === 'Escape' || evt.key === 'Esc') {
         evt.preventDefault();
-        replaceEditFormToPoint();
+        replaceEditingPointToPreviewPoint();
         document.removeEventListener('keydown', onEscKeyDown);
       }
     };
 
-    pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
-      replacePointToEditForm();
+    previewPointComponent.setEditClickHandler(() => {
+      replacePreviewPointToEditingPoint();
       document.addEventListener('keydown', onEscKeyDown);
     });
 
-    pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', (evt) => {
-      evt.preventDefault();
-      replaceEditFormToPoint();
+    editingPointComponent.setPreviewClickHandler(() => {
+      replaceEditingPointToPreviewPoint();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-    pointEditComponent.element.querySelector('form').addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      replaceEditFormToPoint();
+    editingPointComponent.setFormSubmitHandler(() => {
+      replaceEditingPointToPreviewPoint();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-    render(pointComponent, this.#boardComponent.element);
+    render(previewPointComponent, this.#boardComponent.element);
   };
 }
