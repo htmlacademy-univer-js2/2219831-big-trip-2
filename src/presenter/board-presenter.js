@@ -57,10 +57,12 @@ export default class BoardPresenter {
       }
     };
 
-    previewPointComponent.setEditClickHandler(() => {
+    const handleEditClick = () => {
       replacePreviewPointToEditingPoint();
       document.addEventListener('keydown', onEscKeyDown);
-    });
+    };
+
+    previewPointComponent.setEditClickHandler(handleEditClick);
 
     editingPointComponent.setPreviewClickHandler(() => {
       replaceEditingPointToPreviewPoint();
