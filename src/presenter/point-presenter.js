@@ -1,6 +1,7 @@
 import { render, replace, remove } from '../framework/framework/render.js';
 import PreviewPointView from '../view/preview-point-view.js';
-import EditePointView from '../view/edit-form-view.js';
+import EditeFormView from '../view/edit-form-view.js';
+import { UserAction, UpdateType } from '../const.js';
 
 const Mode = {
   PREVIEW: 'preview',
@@ -21,6 +22,7 @@ export default class PointPresenter {
 
   #point = null;
   #mode = Mode.PREVIEW;
+  #isNewPoint = false;
 
   constructor(pointListContainer, pointsModel, changeData, changeMode) {
     this.#pointListContainer = pointListContainer;
@@ -38,12 +40,18 @@ export default class PointPresenter {
     const prevEditingPointComponent =  this.#editingPointComponent;
 
     this.#previewPointComponent = new PreviewPointView(point, this.#destinations, this.#offers);
-    this.#editingPointComponent = new EditePointView(point, this.#destinations, this.#offers);
+    this.#editingPointComponent = new EditeFormView({
+      point: point,
+      destination: this.#destinations,
+      offers: this.#offers,
+      isNewPoint: this.#isNewPoint
+    });
 
     this.#previewPointComponent.setEditClickHandler(this.#handleEditClick);
     this.#previewPointComponent.setFavoriteClickHandler(this.#handleFavoriteClick);
     this.#editingPointComponent.setPreviewClickHandler(this.#handlePreviewClick);
     this.#editingPointComponent.setFormSubmitHandler(this.#handleFormSubmit);
+    this.#editingPointComponent.setDeleteClickHandler(this.#handleDeleteClick);
 
     if (prevPreviewPointComponent === null || prevEditingPointComponent === null) {
       render(this.#previewPointComponent, this.#pointListContainer);
@@ -90,13 +98,16 @@ export default class PointPresenter {
   #escKeyDownHandler = (evt) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
-      this.#editingPointComponent.reset(this.#point);
-      this.#replaceEditingPointToPreviewPoint();
+      this.resetView();
     }
   };
 
   #handleFavoriteClick = () => {
-    this.#changeData({...this.#point, isFavorite: !this.#point.isFavorite});
+    this.#changeData(
+      UserAction.UPDATE_POINT,
+      UpdateType.PATCH,
+      {...this.#point, isFavorite: !this.#point.isFavorite},
+    );
   };
 
   #handleEditClick = () => {
@@ -104,12 +115,23 @@ export default class PointPresenter {
   };
 
   #handlePreviewClick = () => {
-    this.#editingPointComponent.reset(this.#point);
-    this.#replaceEditingPointToPreviewPoint();
+    this.resetView();
   };
 
   #handleFormSubmit = (point) => {
-    this.#changeData(point);
+    this.#changeData(
+      UserAction.UPDATE_POINT,
+      UpdateType.MINOR,
+      point,
+    );
     this.#replaceEditingPointToPreviewPoint();
+  };
+
+  #handleDeleteClick = (point) => {
+    this.#changeData(
+      UserAction.DELETE_POINT,
+      UpdateType.MINOR,
+      point,
+    );
   };
 }
