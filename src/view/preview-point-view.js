@@ -1,5 +1,5 @@
 import AbstractView from '../framework/framework/view/abstract-view.js';
-import {humanizePointDueDate, duration, getDate, getTime } from '../utils/point.js';
+import {humanizePointDueDate, getDuration, getDate, getTime } from '../utils/point.js';
 import he from 'he';
 
 const renderOffers = (allOffers, checkedOffers) => {
@@ -18,7 +18,7 @@ const renderOffers = (allOffers, checkedOffers) => {
 const createPreviewPointTemplate = (point, destinations, allOffers) => {
   const {basePrice, type, destination, isFavorite, dateFrom, dateTo, offers} = point;
   const allPointTypeOffers = allOffers.find((offer) => offer.type === type);
-  const eventDuration = duration(dateFrom, dateTo);
+  const eventDuration = getDuration(dateFrom, dateTo);
   const startDate = dateFrom !== null ? humanizePointDueDate(dateFrom) : '';
   const endDate = dateTo !== null ? humanizePointDueDate(dateTo) : '';
   const destinationData = destinations.find((item) => item.id === destination);
@@ -80,14 +80,14 @@ export default class PreviewPointView extends AbstractView {
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#editClickHandler);
   };
 
-  #editClickHandler = (evt) => {
-    evt.preventDefault();
-    this._callback.editClick();
-  };
-
   setFavoriteClickHandler = (callback) => {
     this._callback.favoriteClick = callback;
     this.element.querySelector('.event__favorite-btn').addEventListener('click', this.#favoriteClickHandler);
+  };
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.editClick();
   };
 
   #favoriteClickHandler = (evt) => {

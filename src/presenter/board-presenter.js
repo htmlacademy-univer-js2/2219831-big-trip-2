@@ -60,7 +60,8 @@ export default class BoardPresenter {
     const points = this.#pointsModel.points;
     const filteredPoints = filter[this.#filterType](points);
 
-    //sorting[this.#currentSortType](...filteredPoints);
+    sorting[this.#currentSortType](filteredPoints);
+
     return filteredPoints;
   }
 
@@ -223,7 +224,9 @@ export default class BoardPresenter {
       return;
     }
 
-    if (this.#offersModel.offers.length === 0 || this.#destinationsModel.destinations.length === 0) {
+    if (this.#offersModel.offers.length === 0 || this.#offersModel.isSuccessfulLoading === false ||
+      this.#destinationsModel.destinations.length === 0 || this.#destinationsModel.isSuccessfulLoading === false ||
+      this.#pointsModel.isSuccessfulLoading === false) {
       this.#renderNoAdditionalInfo();
       return;
     }
