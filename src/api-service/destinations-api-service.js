@@ -1,5 +1,4 @@
 import ApiService from '../framework/framework/api-service.js';
-import { ApiServiceResponseMethod } from '../const.js';
 
 export default class DestinationsApiService extends ApiService {
   get destinations() {
@@ -7,16 +6,4 @@ export default class DestinationsApiService extends ApiService {
       .then(ApiService.parseResponse);
   }
 
-  updateDestination = async (destination) => {
-    const response = await this._load({
-      url: `destinations/${destination.id}`,
-      method: ApiServiceResponseMethod.PUT,
-      body: JSON.stringify(destination),
-      headers: new Headers({'Content-Type': 'application/json'}),
-    });
-
-    const parsedResponse = await ApiService.parseResponse(response);
-
-    return parsedResponse;
-  };
 }

@@ -1,5 +1,4 @@
 import FilterPresenter from './presenter/filter-presenter.js';
-//import { render } from './framework/framework/render.js';
 import BoardPresenter from './presenter/board-presenter.js';
 import NewPointButtonPresenter from './presenter/new-point-button-presenter.js';
 import PointsModel from './model/points-model.js';
@@ -23,6 +22,8 @@ const filterModel = new FilterModel();
 const filterPresenter = new FilterPresenter({
   filterContainer: siteHeaderElement.querySelector('.trip-controls__filters'),
   pointsModel: pointsModel,
+  destinationsModel: destinationsModel,
+  offersModel: offersModel,
   filterModel: filterModel
 });
 filterPresenter.init();
@@ -41,6 +42,7 @@ const newPointButtonPresenter = new NewPointButtonPresenter({
   newPointButtonContainer: siteHeaderElement,
   destinationsModel: destinationsModel,
   offersModel: offersModel,
+  pointsModel: pointsModel,
   boardPresenter: boardPresenter
 });
 

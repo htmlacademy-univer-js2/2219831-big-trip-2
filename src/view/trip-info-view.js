@@ -21,6 +21,7 @@ const renderRouteTrip = (points, destinations) => {
   return routeWithoutRepeats.map((destination) => `${destinations.find((item) => item.id === destination).name}`).join(' &mdash; ');
 
 };
+
 const renderDatesTrip = (points) => {
   if (points.length === 0) {
     return '';
