@@ -13,7 +13,6 @@ import { END_POINT, AUTHORIZATION } from './const.js';
 
 const siteMainElement = document.querySelector('.page-main');
 const siteHeaderElement = document.querySelector('.trip-main');
-
 const pointsModel = new PointsModel(new PointsApiService(END_POINT, AUTHORIZATION));
 const destinationsModel = new DestinationsModel(new DestinationsApiService(END_POINT, AUTHORIZATION));
 const offersModel = new OffersModel(new OffersApiService(END_POINT, AUTHORIZATION));
@@ -47,7 +46,6 @@ const newPointButtonPresenter = new NewPointButtonPresenter({
 });
 
 newPointButtonPresenter.init();
-
 
 offersModel.init().finally(() => {
   destinationsModel.init().finally(() => {
