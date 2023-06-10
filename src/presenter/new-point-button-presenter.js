@@ -7,7 +7,6 @@ export default class NewPointButtonPresenter {
   #pointsModel = null;
   #offersModel = null;
   #boardPresenter = null;
-
   #newPointButtonComponent = null;
 
   constructor({newPointButtonContainer, destinationsModel, pointsModel, offersModel, boardPresenter}) {

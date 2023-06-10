@@ -8,10 +8,8 @@ export default class PointNewPresenter {
   #editingPointComponent = null;
   #changeData = null;
   #destroyCallback = null;
-
   #destinationsModel = null;
   #offersModel = null;
-
   #destinations = null;
   #offers = null;
 
@@ -40,7 +38,6 @@ export default class PointNewPresenter {
     this.#editingPointComponent.setResetClickHandler(this.#handleResetClick);
 
     render(this.#editingPointComponent, this.#pointListContainer, RenderPosition.AFTERBEGIN);
-
     document.addEventListener('keydown', this.#escKeyDownHandler);
   };
 

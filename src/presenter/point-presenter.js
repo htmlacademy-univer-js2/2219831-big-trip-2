@@ -15,13 +15,10 @@ export default class PointPresenter {
   #editingPointComponent = null;
   #destinationsModel = null;
   #offersModel = null;
-
   #destinations = null;
   #offers = null;
-
   #changeData = null;
   #changeMode = null;
-
   #point = null;
   #mode = Mode.PREVIEW;
 

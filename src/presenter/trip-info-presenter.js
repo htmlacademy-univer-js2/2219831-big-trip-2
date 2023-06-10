@@ -7,7 +7,6 @@ export default class TripInfoPresenter {
   #tripInfoContainer = null;
   #destinationsModel = null;
   #offersModel = null;
-
   #destinations = null;
   #offers = null;
 
@@ -21,7 +20,6 @@ export default class TripInfoPresenter {
     this.#points = points;
     this.#destinations = [...this.#destinationsModel.destinations];
     this.#offers = [...this.#offersModel.offers];
-
     this.#tripInfoComponent = new TripInfoView(this.#points, this.#destinations, this.#offers);
 
     render(this.#tripInfoComponent, this.#tripInfoContainer);
