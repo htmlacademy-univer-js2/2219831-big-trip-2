@@ -60,12 +60,6 @@ const PointTypeDescription = {
   [PointType.RESTAURANT]: 'Restaurant'
 };
 
-const ApiServiceResponseMethod = {
-  GET: 'GET',
-  PUT: 'PUT',
-  POST: 'POST',
-  DELETE: 'DELETE'
-};
 
 const TimeLimit = {
   LOWER_LIMIT: 350,
@@ -74,4 +68,4 @@ const TimeLimit = {
 
 
 export { UserAction, UpdateType, FilterType, SortType, SortTypeDescription, PointType, PointTypeDescription,
-  ApiServiceResponseMethod, AUTHORIZATION, END_POINT, TimeLimit };
+  AUTHORIZATION, END_POINT, TimeLimit };

@@ -1,6 +1,6 @@
 import { render, replace, remove } from '../framework/framework/render.js';
 import FilterView from '../view/filter-view.js';
-import { filter } from '../utils/filter.js';
+import { filtering } from '../utils/point.js';
 import { FilterType, UpdateType } from '../const.js';
 
 export default class FilterPresenter {
@@ -9,7 +9,6 @@ export default class FilterPresenter {
   #pointsModel = null;
   #offersModel = null;
   #destinationsModel = null;
-
   #filterComponent = null;
 
   constructor({filterContainer, pointsModel, destinationsModel, offersModel, filterModel}) {
@@ -30,17 +29,17 @@ export default class FilterPresenter {
       {
         type: FilterType.EVERYTHING,
         name: FilterType.EVERYTHING,
-        count: filter[FilterType.EVERYTHING](points).length,
+        count: filtering[FilterType.EVERYTHING](points).length,
       },
       {
         type: FilterType.PAST,
         name: FilterType.PAST,
-        count: filter[FilterType.PAST](points).length,
+        count: filtering[FilterType.PAST](points).length,
       },
       {
         type: FilterType.FUTURE,
         name: FilterType.FUTURE,
-        count: filter[FilterType.FUTURE](points).length,
+        count: filtering[FilterType.FUTURE](points).length,
       },
     ];
   }

@@ -7,8 +7,7 @@ import LoadingView from '../view/loading-view.js';
 import NoAdditionalInfoView from '../view/no-additional-info-view.js';
 import PointPresenter from './point-presenter.js';
 import PointNewPresenter from './point-new-presenter.js';
-import { sorting } from '../utils/point.js';
-import { filter } from '../utils/filter.js';
+import { sorting, filtering } from '../utils/point.js';
 import { UpdateType, UserAction, SortType, FilterType, TimeLimit } from '../const.js';
 import TripInfoPresenter from './trip-info-presenter.js';
 
@@ -55,18 +54,15 @@ export default class BoardPresenter {
     this.#filterModel.addObserver(this.#handleModelEvent);
   }
 
-  get points() {
-    this.#filterType = this.#filterModel.filter;
-    const points = this.#pointsModel.points;
-    const filteredPoints = filter[this.#filterType](points);
-
-    sorting[this.#currentSortType](filteredPoints);
-
-    return filteredPoints;
-  }
-
   init() {
     this.#renderBoard();
+  }
+
+  get points() {
+    this.#filterType = this.#filterModel.filter;
+    const filteredPoints = filtering[this.#filterType](this.#pointsModel.points);
+    sorting[this.#currentSortType](filteredPoints);
+    return filteredPoints;
   }
 
   createPoint = (callback) => {

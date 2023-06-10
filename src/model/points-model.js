@@ -35,7 +35,7 @@ export default class PointsModel extends Observable{
     const index = this.#points.findIndex((point) => point.id === update.id);
 
     if (index === -1) {
-      throw new Error('Can\'t update unexisting point');
+      throw new Error('Can\'t update this unexisting point');
     }
 
     try {
@@ -48,7 +48,7 @@ export default class PointsModel extends Observable{
       ];
       this._notify(updateType, updatedPoint);
     } catch(err) {
-      throw new Error('Can\'t update point');
+      throw new Error('Can\'t update this point');
     }
   };
 
@@ -59,7 +59,7 @@ export default class PointsModel extends Observable{
       this.#points.unshift(newPoint);
       this._notify(updateType, newPoint);
     } catch(err) {
-      throw new Error('Can\'t add point');
+      throw new Error('Can\'t add this point');
     }
   };
 
@@ -67,7 +67,7 @@ export default class PointsModel extends Observable{
     const index = this.#points.findIndex((point) => point.id === update.id);
 
     if (index === -1) {
-      throw new Error('Can\'t delete unexisting point');
+      throw new Error('Can\'t delete this unexisting point');
     }
 
     try {
@@ -78,7 +78,7 @@ export default class PointsModel extends Observable{
       ];
       this._notify(updateType);
     } catch(err) {
-      throw new Error('Can\'t delete point');
+      throw new Error('Can\'t delete this point');
     }
   };
 
@@ -90,9 +90,9 @@ export default class PointsModel extends Observable{
       isFavorite: point['is_favorite'],
     };
 
-    delete adaptedPoint['base_price'];
     delete adaptedPoint['date_from'];
     delete adaptedPoint['date_to'];
+    delete adaptedPoint['base_price'];
     delete adaptedPoint['is_favorite'];
 
     return adaptedPoint;

@@ -51,7 +51,7 @@ const renderDestinationContainer = (destination) => {
                 ${renderDestinationPictures(destination.pictures)}
                 </div>
               </div>
-  </section>`;
+    </section>`;
   }
   return '';
 };

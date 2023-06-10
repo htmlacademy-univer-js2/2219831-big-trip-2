@@ -8,10 +8,8 @@ export default class PointNewPresenter {
   #editingPointComponent = null;
   #changeData = null;
   #destroyCallback = null;
-
   #destinationsModel = null;
   #offersModel = null;
-
   #destinations = null;
   #offers = null;
 
